@@ -1,0 +1,4 @@
+
+# DO NOT DELETE
+./EMG_C.so: /Users/xasti1/miniforge3/envs/ROOT/include/RVersion.h /Users/xasti1/miniforge3/envs/ROOT/include/ROOT/RConfig.hxx /Users/xasti1/miniforge3/envs/ROOT/include/TClass.h /Users/xasti1/miniforge3/envs/ROOT/include/TDictAttributeMap.h /Users/xasti1/miniforge3/envs/ROOT/include/TInterpreter.h /Users/xasti1/miniforge3/envs/ROOT/include/TROOT.h /Users/xasti1/miniforge3/envs/ROOT/include/TBuffer.h /Users/xasti1/miniforge3/envs/ROOT/include/TMemberInspector.h /Users/xasti1/miniforge3/envs/ROOT/include/TError.h /Users/xasti1/miniforge3/envs/ROOT/include/RtypesImp.h /Users/xasti1/miniforge3/envs/ROOT/include/TIsAProxy.h /Users/xasti1/miniforge3/envs/ROOT/include/TFileMergeInfo.h /Users/xasti1/miniforge3/envs/ROOT/include/TCollectionProxyInfo.h /Users/xasti1/miniforge3/envs/ROOT/bin/rootcling
+EMG_C__ROOTBUILDVERSION= 6.34.04

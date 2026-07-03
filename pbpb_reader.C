@@ -439,17 +439,17 @@ void pbpb_reader::InitHists() { //not running this will cause a segmentation err
     //function takes (std::vector<double>& bins, int nBins, double low, double high)
     fillLogBinningArray(acop_bins1,  100, 0.5*10e-5, 1); //0n0n
     fillLogBinningArray(acop_bins2,  100, 0.5*10e-5, 1); //1n0n
-    fillLogBinningArray(acop_bins3,  85, 0.5*10e-5, 1); //1n1n
+    fillLogBinningArray(acop_bins3,  85, 0.5*10e-5, 1);  //1n1n
     fillLogBinningArray(acop_bins4,  100, 0.5*10e-5, 1); //Xn0n
-    fillLogBinningArray(acop_bins5,  80, 0.5*10e-5, 1); //Xn1n
+    fillLogBinningArray(acop_bins5,  80, 0.5*10e-5, 1);  //Xn1n
     fillLogBinningArray(acop_bins6,  100, 0.5*10e-5, 1); //XnXn
     fillLogBinningArray(acop_bins7,  100, 0.5*10e-5, 1); //Yn0n
-    fillLogBinningArray(acop_bins8,  70, 0.5*10e-5, 1); //Yn1n
+    fillLogBinningArray(acop_bins8,  70, 0.5*10e-5, 1);  //Yn1n
     fillLogBinningArray(acop_bins9,  100, 0.5*10e-5, 1); //YnYn
     fillLogBinningArray(acop_bins10, 100, 0.5*10e-5, 1); //Zn0n
     fillLogBinningArray(acop_bins11, 100, 0.5*10e-5, 1); //Zn1n
     fillLogBinningArray(acop_bins12, 100, 0.5*10e-5, 1); //ZnZn
-    fillLogBinningArray(acop_bins13, 100, 0.5*10e-5, 1);
+    fillLogBinningArray(acop_bins13, 100, 0.5*10e-5, 1); //
 
 
     //############################### kperp bin creation ###############################

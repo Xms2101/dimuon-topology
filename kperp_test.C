@@ -268,12 +268,18 @@ void kperp_test(){
     f_emg_p->SetLineColor(kBlue);
     f_pow1->SetLineColor(kGreen+2);
 
+    TLatex latex;
+    latex.SetNDC(); // use normalized coordinates (0–1)
+    latex.SetTextSize(0.05);
+    latex.SetTextAlign(22); // center horizontally
+    latex.DrawLatex(0.77, 0.8, Form("%s", bin_names[0]));
+
     f_emg_p->Draw("SAME");
     f_pow1->Draw("SAME");
 
 
     if (save_plots == true){
-        k_onon_emg->SaveAs("plots/full/kperp_0n0n_6.25.png");
+        k_onon_emg->SaveAs("plots/full/kperp_0n0n_6.30.png");
     }
     //cout << tau_1 << " and " << pow_scale << " and " << pow_exp << endl;
     cout << "0n0n Fit" << endl;
@@ -392,10 +398,6 @@ void kperp_test(){
     latex4.SetTextAlign(22);
     latex4.DrawLatex(0.77, 0.8, "Zn1n, fixed x_{0}");
 
-    if (save_plots == true){
-        yzn1n_plot->SaveAs("plots/full/yzn1n_trial_6.25.png");
-    }  
-
     cout << "Y and Z fits" << endl;
     */
 /*
@@ -412,7 +414,7 @@ void kperp_test(){
     kperp_lin[3]->GetXaxis()->SetTitle("MeV");
 
     if (save_plots == true){
-        xnxn_lin_solo->SaveAs("plots/full/kperp_xnxn_6.25.png");
+        xnxn_lin_solo->SaveAs("plots/full/kperp_xnxn_6.30.png");
     }
 */
 
@@ -657,11 +659,19 @@ void kperp_test(){
             latex.DrawLatex(0.75, 0.59, "5 < Z #leq 10");
             latex.SetTextSize(0.05);
             latex.DrawLatex(0.75, 0.88, "k_{#perp}");
-        }
 
+            TLegend *line_names = new TLegend(0.15, 0.2, 0.9, 0.4);
+            line_names->SetBorderSize(0);
+            line_names->SetFillStyle(0);
+            line_names->SetTextSize(0.05);
+            line_names->AddEntry(f_emg, "Core", "l");
+            line_names->AddEntry(f_pow1, "QED Tail", "l");
+            line_names->AddEntry(f_pow2, "Dis Tail", "l");
+            line_names->Draw();
+        }
     }
     if (save_plots == true){
-        perps1->SaveAs("plots/full/kperp11_6.25.png");
+        perps1->SaveAs("plots/full/kperp11_6.30.png");
     }    
     cout << "Kperp1 Fit" << endl;
 
@@ -889,7 +899,7 @@ void kperp_test(){
         latex.DrawLatex(0.77, 0.8, Form("%s", bin_names[i]));
     }
     if (save_plots == true){
-        perps2->SaveAs("plots/full/kperp12_6.25.png");
+        perps2->SaveAs("plots/full/kperp12_6.30.png");
     }
     cout << "Kperp2 Fit" << endl;
 
@@ -1056,7 +1066,7 @@ void kperp_test(){
         }
     }
     if (save_plots == true){
-        perp_rapid->SaveAs("plots/full/kperp_srapid_6.25.png");
+        perp_rapid->SaveAs("plots/full/kperp_srapid_6.30.png");
     }
     cout << "Kperp Rapid Fit" << endl;
 
@@ -1089,14 +1099,14 @@ void kperp_test(){
     M2_hist->Draw("P");
 
     if (save_plots == true){
-        params->SaveAs("plots/full/params_6.25.png");
+        params->SaveAs("plots/full/params_6.30.png");
     }
 
 //############################### ZnZn Disassociative Calculation ###############################
 
     // Integrated, the tail function is -C_1 * alpha/(1-omega) * (1+x/alpha)^(-omega+1) //
     //Integrating k: [150, 1000] MeV and multiply by N counts takes (1/N)dN/dk -> N_diss //
-    // The integral, without C_1, is 425/4 = 106.25 //
+    // The integral, without C_1, is 425/4 = 106.30 //
 
     double c_1 = fitp_z0_8; double alpha = 250.0; double omega = 2.0; int N_total = zn0n_pevent_count + zn0n_nevent_count;
     double tail_integral = c_1 * alpha/(1.0-omega) * ( pow((1.0 + 1000.0/alpha), -omega + 1.0) - pow((1.0 + 150.0/alpha), -omega + 1.0) );
@@ -1205,11 +1215,10 @@ void kperp_test(){
     par_nmean->Modified();
     par_nmean->Update();
     if (save_plots == true){
-        par_nmean->SaveAs("plots/full/params_nmean_6.25.png");
+        par_nmean->SaveAs("plots/full/params_nmean_6.30.png");
     }
 
-
-    TCanvas *pars_fit = new TCanvas("pars_fit", "c0 and c1 fit", 1200, 1000);
+    TCanvas *pars_fit = new TCanvas("pars_fit", "c0 and c1 fit", 1200, 1000); //both of these fits give a "lower/upper bounds outside current parameter value"
     pars_fit->Divide(1,2);
 
     pars_fit->cd(1);
@@ -1217,6 +1226,7 @@ void kperp_test(){
     TF1 *c0_N_func = new TF1("c0_N_func", "[0] * pow((1 + x/[1]), -[2]) + [3]");
     fit_c0_0->SetMinimum(0.7);
     fit_c0_0->GetXaxis()->SetLimits(0, 17);
+    fit_c0_0->GetYaxis()->SetTitle("C_{0}");
     fit_c0_0->SetMarkerColor(kGreen+2);
     c0_0_func->SetLineColor(kGreen+2);
     fit_c0_N->SetMarkerColor(kRed);
@@ -1224,7 +1234,7 @@ void kperp_test(){
 
     c0_0_func->SetParLimits(1, 0, 1e5);
     c0_0_func->SetParLimits(2, 1e-5, 100);
-    fit_c0_0->Fit(c0_0_func, "I");
+    fit_c0_0->Fit(c0_0_func, "QI");
     fit_c0_0->Draw("AP");
     gPad->Update();
     for (int i = 1; i < 6; i++) {
@@ -1253,6 +1263,7 @@ void kperp_test(){
     TF1 *c1_N_func = new TF1("c1_N_func", "-[0] * pow((1 + x/[1]), -[2]) + [3]");
     fit_c1_0->SetMinimum(0.01);
     fit_c1_0->GetXaxis()->SetLimits(0.0, 17.0);
+    fit_c1_0->GetYaxis()->SetTitle("C_{1}");
     fit_c1_0->SetMarkerColor(kGreen+2);
     c1_0_func->SetLineColor(kGreen+2);
     fit_c1_N->SetMarkerColor(kRed);
@@ -1288,6 +1299,8 @@ void kperp_test(){
     pars_fit->Update();
 
     if (save_plots == true){
-        pars_fit->SaveAs("plots/full/pars_fit_6.25.png");
+        pars_fit->SaveAs("plots/full/pars_fit_6.30.png");
     }
+
+
 }
